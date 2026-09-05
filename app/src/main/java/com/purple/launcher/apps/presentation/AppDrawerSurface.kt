@@ -13,16 +13,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.purple.launcher.apps.domain.AppCategory
+import com.purple.launcher.apps.domain.CategoryGroup
 import com.purple.launcher.apps.domain.AppModel
 
 @Composable
 fun AppDrawerSurface(
-    categories: List<AppCategory>,
+    categories: List<CategoryGroup>,
     onAppLaunch: (AppModel) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val allApps = categories.flatMap { it.apps }
+    val allApps: List<AppModel> = categories.flatMap { group -> group.apps }
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(4),
@@ -33,7 +33,7 @@ fun AppDrawerSurface(
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        items(allApps) { app ->
+        items(items = allApps) { app: AppModel ->
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
