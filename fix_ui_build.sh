@@ -1,3 +1,10 @@
+#!/bin/bash
+set -e
+
+NOWBAR_DIR="app/src/main/java/com/purple/launcher/nowbar"
+
+# Update NowBarUi to use Text icons to avoid missing extended Material vector icon dependency issues
+cat << 'KOTLIN' > ${NOWBAR_DIR}/NowBarUi.kt
 package com.purple.launcher.nowbar
 
 import androidx.compose.foundation.background
@@ -76,3 +83,6 @@ fun NowBarSurface(
         }
     }
 }
+KOTLIN
+
+echo "Fix applied successfully!"
