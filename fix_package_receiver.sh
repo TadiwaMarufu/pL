@@ -1,3 +1,11 @@
+#!/bin/bash
+set -e
+
+RECEIVER_DIR="app/src/main/java/com/purple/launcher/apps/receiver"
+
+mkdir -p ${RECEIVER_DIR}
+
+cat << 'KOTLIN' > ${RECEIVER_DIR}/PackageChangeReceiver.kt
 package com.purple.launcher.apps.receiver
 
 import android.content.BroadcastReceiver
@@ -32,3 +40,6 @@ class PackageChangeReceiver : BroadcastReceiver() {
         }
     }
 }
+KOTLIN
+
+echo "PackageChangeReceiver updated with async coroutine scope!"
