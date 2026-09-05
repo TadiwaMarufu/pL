@@ -1,16 +1,16 @@
 package com.purple.launcher.apps.domain
 
-enum class AppCategory { COMMUNICATION, SOCIAL, MEDIA, WORK, GAMES, TOOLS, UNCATEGORIZED }
+import android.graphics.drawable.Drawable
 
 data class AppModel(
-    val packageName: String,
-    val className: String,
+    val id: String,
     val label: String,
-    val category: AppCategory = AppCategory.UNCATEGORIZED
+    val packageName: String,
+    val icon: Drawable? = null,
+    val categoryName: String = "General"
 )
 
 data class CategoryGroup(
-    val category: AppCategory,
-    val displayName: String,
+    val name: String,
     val apps: List<AppModel>
 )

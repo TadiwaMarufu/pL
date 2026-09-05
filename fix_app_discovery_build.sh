@@ -1,3 +1,36 @@
+#!/bin/bash
+set -e
+
+DOMAIN_DIR="app/src/main/java/com/purple/launcher/apps/domain"
+ENGINE_DIR="app/src/main/java/com/purple/launcher/apps/engine"
+
+echo "Cleaning duplicate domain files and updating AppDiscoveryEngine..."
+
+# 1. Remove duplicate AppModel.kt file if present
+rm -f ${DOMAIN_DIR}/AppModel.kt
+
+# 2. Write unified AppModels.kt
+cat << 'KOTLIN' > ${DOMAIN_DIR}/AppModels.kt
+package com.purple.launcher.apps.domain
+
+import android.graphics.drawable.Drawable
+
+data class AppModel(
+    val id: String,
+    val label: String,
+    val packageName: String,
+    val icon: Drawable? = null,
+    val categoryName: String = "General"
+)
+
+data class CategoryGroup(
+    val name: String,
+    val apps: List<AppModel>
+)
+KOTLIN
+
+# 3. Update AppDiscoveryEngine to include refreshApps()
+cat << 'KOTLIN' > ${ENGINE_DIR}/AppDiscoveryEngine.kt
 package com.purple.launcher.apps.engine
 
 import android.content.Context
@@ -52,3 +85,6 @@ class AppDiscoveryEngine @Inject constructor(
         loadInstalledApps()
     }
 }
+KOTLIN
+
+echo "Fixes applied successfully!"
