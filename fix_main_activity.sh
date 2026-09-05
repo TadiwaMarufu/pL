@@ -1,3 +1,9 @@
+#!/bin/bash
+set -e
+
+HOME_DIR="app/src/main/java/com/purple/launcher/launcher/presentation"
+
+cat << 'KOTLIN' > ${HOME_DIR}/MainActivity.kt
 package com.purple.launcher.launcher.presentation
 
 import android.content.Intent
@@ -100,3 +106,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+KOTLIN
+
+echo "MainActivity imports and explicit types resolved!"
